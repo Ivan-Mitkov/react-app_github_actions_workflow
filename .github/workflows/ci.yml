@@ -13,7 +13,7 @@ jobs:
     steps:
       # get code from repository
       - uses: actions/checkout@v2
-      #cache dependencies need to be before npm install
+      #cache dependencies, need to be before npm install
       - name: Cache node modules
         uses: actions/cache@v1
         with: 
