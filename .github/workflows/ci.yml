@@ -13,11 +13,23 @@ jobs:
     steps:
       # get code from repository
       - uses: actions/checkout@v2
+      #cache dependencies need to be before npm install
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with: 
+        # for ubuntu and npm path is
+          path: ~/.npm
+          #change key if there are new dependencies or new operating system we are using npm install in github
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          # search for old keys if github don't find cache with upper key, that starts with: ${{ runner.os }}-node-
+          restore-key: |
+            ${{ runner.os }}-node-
       # use specific node version
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+          
       # install dependancies
       - run: npm install
       # format code
