@@ -26,3 +26,7 @@ https://github.com/actions/cache
 https://github.com/actions/cache/blob/main/examples.md#node---npm
 
 https://docs.github.com/en/free-pro-team@latest/actions/guides/caching-dependencies-to-speed-up-workflows#:~:text=When%20key%20matches%20an%20existing%20cache%2C%20it%27s%20called,the%20action%20searches%20for%20alternate%20keys%20called%20restore-keys.
+
+### upload artifacts
+
+https://github.com/actions/upload-artifact

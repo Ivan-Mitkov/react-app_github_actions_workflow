@@ -39,11 +39,24 @@ jobs:
         # for not having interactive terminal
         env:
           CI: true
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v1
+        #inputs
+        with:
+          name: code-coverage
+          path: coverage
       # merging
       - name: Build project
         #create build folder only on push event
         if: github.event_name == 'push'
         run: npm run build
+      - name: Upload Build Folder
+        uses: actions/upload-artifact@v1
+        #inputs
+        with:
+          name: build_folder
+          path: build
+
       # deploy
       - name: Deploy to staging
         if: github.event_name == 'push'
