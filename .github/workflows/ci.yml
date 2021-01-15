@@ -13,11 +13,23 @@ jobs:
     steps:
       # get code from repository
       - uses: actions/checkout@v2
+      #cache dependencies, need to be before npm install
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          # for ubuntu and npm path is
+          path: ~/.npm
+          #change key, if there are new dependencies or new operating system we are using npm install in github
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          # search for old keys if github don't find cache with upper key, that starts with: ${{ runner.os }}-node-
+          restore-keys: |
+            ${{ runner.os }}-node-
       # use specific node version
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+
       # install dependancies
       - run: npm install
       # format code
@@ -27,11 +39,25 @@ jobs:
         # for not having interactive terminal
         env:
           CI: true
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v1
+        #inputs
+        with:
+          name: code-coverage
+          path: coverage
       # merging
       - name: Build project
         #create build folder only on push event
         if: github.event_name == 'push'
         run: npm run build
+      - name: Upload Build Folder
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v1
+        #inputs
+        with:
+          name: build_folder
+          path: build
+
       # deploy
       - name: Deploy to staging
         if: github.event_name == 'push'
