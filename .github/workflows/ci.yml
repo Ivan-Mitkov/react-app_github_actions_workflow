@@ -32,7 +32,8 @@ jobs:
       #create build folder only on push event
         if: github.event_name == 'push'
         run: npm run build
-      # deploy  
+      # deploy 
+      - name: Deploy to staging 
         if: github.event_name == 'push'
         # install surge
         run: npx surge --project ./build --domain nine-crown.surge.sh
