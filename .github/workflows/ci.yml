@@ -1,10 +1,10 @@
 name: CI
 on:
-    #for creating pull request
+  #for creating pull request
   pull_request:
     branches: [develop]
     #for merging pull request
-  push:   
+  push:
     branches: [develop]
 
 jobs:
@@ -29,16 +29,15 @@ jobs:
           CI: true
       # merging
       - name: Build project
-      #create build folder only on push event
+        #create build folder only on push event
         if: github.event_name == 'push'
         run: npm run build
-      # deploy 
-      - name: Deploy to staging 
+      # deploy
+      - name: Deploy to staging
         if: github.event_name == 'push'
         # install surge
         run: npx surge --project ./build --domain nine-crown.surge.sh
         # surge authentication
-        env: 
+        env:
           SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
           SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
-          
