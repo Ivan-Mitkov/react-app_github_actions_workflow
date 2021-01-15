@@ -12,3 +12,9 @@ https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-arch
 #### npm ci
 
 https://docs.npmjs.com/cli/v6/commands/npm-ci
+
+### surge credentials
+
+surge whoami - for login
+
+surge token - generate token

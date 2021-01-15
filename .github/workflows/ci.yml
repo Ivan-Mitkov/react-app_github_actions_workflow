@@ -1,7 +1,12 @@
 name: CI
 on:
+    #for creating pull request
   pull_request:
     branches: [develop]
+    #for merging pull request
+  push:   
+    branches: [develop]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,7 +19,7 @@ jobs:
         with:
           node-version: "12.x"
       # install dependancies
-      - run: yarn
+      - run: npm install
       # format code
       - run: npm run format:check
       # run tests and generate code coverage
@@ -22,3 +27,17 @@ jobs:
         # for not having interactive terminal
         env:
           CI: true
+      # merging
+      - name: Build project
+      #create build folder only on push event
+        if: github.event_name == 'push'
+        run: npm run build
+      # deploy  
+        if: github.event_name == 'push'
+        # install surge
+        run: npx surge --project ./build --domain nine-crown.surge.sh
+        # surge authentication
+        env: 
+          SURGE_LOGIN: ${{secrets.SURGE_LOGIN}}
+          SURGE_TOKEN: ${{secrets.SURGE_TOKEN}}
+          
