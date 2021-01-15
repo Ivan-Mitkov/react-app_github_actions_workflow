@@ -19,7 +19,7 @@ jobs:
         with: 
         # for ubuntu and npm path is
           path: ~/.npm
-          #change key if there are new dependencies or new operating system we are using npm install in github
+          #change key, if there are new dependencies or new operating system we are using npm install in github
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           # search for old keys if github don't find cache with upper key, that starts with: ${{ runner.os }}-node-
           restore-key: |
