@@ -8,3 +8,7 @@ A CODEOWNERS file uses a pattern that follows most of the same rules used in git
 
 If any line in your CODEOWNERS file contains invalid syntax, the file will not be detected and will not be used to request reviews.
 https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/about-code-owners
+
+#### npm ci
+
+https://docs.npmjs.com/cli/v6/commands/npm-ci
